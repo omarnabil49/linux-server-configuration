@@ -1,8 +1,8 @@
 # linux-server-configuration
 ## Project info
 
-Public IP address: 18.195.60.34  or http://www.18.195.60.34.xip.io/ for using google oauth 
-URL : http://ec2-18-195-60-34.eu-central-1.compute.amazonaws.com/
+Public IP address: 18.195.60.34  or http://www.18.195.60.34.xip.io/ for using google oauth  
+URL : http://ec2-18-195-60-34.eu-central-1.compute.amazonaws.com/  
 SSH port: 2200
 
 # Linux Server Configuration Steps
@@ -49,14 +49,14 @@ SSH port: 2200
 
 Enter these commands to allow only incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)  
 
-`sudo ufw status` it should be inactive  
-`sudo ufw default deny incoming  
- sudo ufw default allow outgoing  
- sudo ufw allow 2200/tcp  
- sudo ufw allow 80/tcp  
- sudo ufw allow 123/udp  
- sudo ufw deny 22  
- sudo ufw enable`
+`sudo ufw status` it should be inactive    
+`sudo ufw default deny incoming    
+ sudo ufw default allow outgoing    
+ sudo ufw allow 2200/tcp    
+ sudo ufw allow 80/tcp    
+ sudo ufw allow 123/udp    
+ sudo ufw deny 22    
+ sudo ufw enable  `
  
 
 Go to Amazon Lightsail Instance and go to `networking` tab and change firewall configurations to allow ports `2200/tcp`, `80/tcp` and `123/udp` and deny `22/ssh`
@@ -74,7 +74,7 @@ Run commands
 
 `sudo apt-get install apache2`  
 `sudo apt-get install libapache2-mod-wsgi`  
-Enable mod_wsgi using command sudo `a2enmod wsgi`  
+Enable `mod_wsgi` using command sudo `a2enmod wsgi`  
 
 ## Install and configure PostgreSQL
 
@@ -98,17 +98,13 @@ Enable mod_wsgi using command sudo `a2enmod wsgi`
 ## Setup new virtual host
 
 1. Create `itemcatalog.conf` file in path `/etc/apache2/sites-enabled` and edit it using `sudo nano /etc/apache2/sites-enabled/itemcatalog.conf` and add following lines
-`
- <VirtualHost *:80>
+
+`<VirtualHost *:80>
         ServerName 18.195.60.34
-
         ServerAdmin omar.nabil.49@gmail.com
-        WSGIDaemonProcess itemCatalog python-home=/var/www/itemCatalog/itemCatalog/venv/lib/python2.7/site-packages
-
+        WSGIDaemonProcess itemCatalog python-home=/var/www/itemCatalog/itemCata$
         WSGIProcessGroup itemCatalog
-
         WSGIScriptAlias / /var/www/itemCatalog/myapp.wsgi
-
         <Directory /var/www/itemCatalog/itemCatalog>
             Order allow,deny
             Allow from all
@@ -117,13 +113,14 @@ Enable mod_wsgi using command sudo `a2enmod wsgi`
         <Directory /var/www/itemCatalog/itemCatalog/static/>
             Order allow,deny
             Allow from all
-        </Directory>
-`
+        </Directory>`
+
+
 then save and exit
 
 2. Enable the virtual host using `sudo a2ensite itemcatalog`
 3. Navigate to `itemCatalog` folder using `cd /var/www/itemCatalog/` command
-4. Create `.wsgi` file with `sudo nano myapp.wsgi` command and add this content
+4. Create `.wsgi` file with `sudo nano myapp.wsgi` command and add this content  
 `import sys
 import logging
 logging.basicConfig(stream=sys.stderr)
