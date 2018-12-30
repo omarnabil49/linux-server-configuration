@@ -11,7 +11,7 @@ SSH port: 2200
 
 1. Create new aws lightsail instance 
 2. My public IP is: `18.195.60.34`
-3. Download private key from account its name is : `LightsailDefaultKey-eu-central-1.pem`
+3. Download private key from aws lightsail account, its default name is : `LightsailDefaultKey-eu-central-1.pem`
 
 ## Launching VM and configuring ssh
 
@@ -133,7 +133,7 @@ application.secret_key = 'super_secret_key'
 ```
 5. Rename `application.py` file and change it to `__init__.py`  
 6. Edit `database_setup`, `lotsofseries.py` and `__init__.py` and change `create_engine('sqlite:///Series.db')` to `create_engine('postgresql://catalog:catalog@localhost/itemcatalog')`  
-7. Edit `__init__.py` and change `client_secrets.json` file path form `'client_secrets.json'` to `'/var/www/itemCatalog/itemCatalog/client_secrets.json'  
+7. Edit `__init__.py` and change `client_secrets.json` file path form `'client_secrets.json'` to `'/var/www/itemCatalog/itemCatalog/client_secrets.json'`  
 
 ## Install virtual environment
 
