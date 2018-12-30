@@ -1,8 +1,9 @@
 # linux-server-configuration
 ## Project info
 
-Public IP address: 18.195.60.34  or http://www.18.195.60.34.xip.io/ for using google oauth.  
-SSH port: 2200.
+Public IP address: 18.195.60.34  or http://www.18.195.60.34.xip.io/ for using google oauth 
+URL : http://ec2-18-195-60-34.eu-central-1.compute.amazonaws.com/
+SSH port: 2200
 
 # Linux Server Configuration Steps
 
@@ -10,7 +11,7 @@ SSH port: 2200.
 
 1. Create new aws lightsail instance 
 2. My public IP is: `18.195.60.34`
-3. Download private key from account its name is : LightsailDefaultKey-eu-central-1.pem
+3. Download private key from account its name is : `LightsailDefaultKey-eu-central-1.pem`
 
 ## Launching VM and configuring ssh
 
@@ -28,9 +29,9 @@ SSH port: 2200.
 
 1. Enter command `sudo adduser grader`
 2. Choose any password for now (I have choosed grader as a password)
-3. Create new file named grader using `sudo touch /etc/sudoers.d/grader
+3. Create new file named grader using `sudo touch /etc/sudoers.d/grader`
 4. Open this file using `sudo nano /etc/sudoers.d/grader` and add this line   
-     'grader ALL=(ALL:ALL) ALL`
+     `grader ALL=(ALL:ALL) ALL`
 
 ## Generating key pair for user grader to use key-based authentication
 
@@ -49,13 +50,14 @@ SSH port: 2200.
 Enter these commands to allow only incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)  
 
 `sudo ufw status` it should be inactive  
-`sudo ufw default deny incoming`  
-`sudo ufw default allow outgoing`  
-`sudo ufw allow 2200/tcp`  
-`sudo ufw allow 80/tcp`  
-`sudo ufw allow 123/udp`  
-`sudo ufw deny 22`  
-`sudo ufw enable`
+`sudo ufw default deny incoming  
+ sudo ufw default allow outgoing  
+ sudo ufw allow 2200/tcp  
+ sudo ufw allow 80/tcp  
+ sudo ufw allow 123/udp  
+ sudo ufw deny 22  
+ sudo ufw enable`
+ 
 
 Go to Amazon Lightsail Instance and go to `networking` tab and change firewall configurations to allow ports `2200/tcp`, `80/tcp` and `123/udp` and deny `22/ssh`
 
@@ -96,8 +98,8 @@ Enable mod_wsgi using command sudo `a2enmod wsgi`
 ## Setup new virtual host
 
 1. Create `itemcatalog.conf` file in path `/etc/apache2/sites-enabled` and edit it using `sudo nano /etc/apache2/sites-enabled/itemcatalog.conf` and add following lines
-
-`<VirtualHost *:80>
+`
+ <VirtualHost *:80>
         ServerName 18.195.60.34
 
         ServerAdmin omar.nabil.49@gmail.com
@@ -158,3 +160,11 @@ Deactivate the virtual environment by using `deactivate` command
 1. Run `database_setup.py` and then `lotsofseries.py` files.
 2. Run `sudo service apache2 restart` command to start the application
 3. Go to `http://18.195.60.34` to run the application
+
+## Resources
+
+1. https://www.digitalocean.com/community/tutorials/how-to-deploy-a-flask-application-on-an-ubuntu-vps
+2. http://flask.pocoo.org/docs/0.12/installation/
+3. http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/
+4. https://help.ubuntu.com/community/UbuntuTime 
+
