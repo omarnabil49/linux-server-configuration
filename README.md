@@ -49,15 +49,16 @@ SSH port: 2200
 
 Enter these commands to allow only incoming connections for SSH (port 2200), HTTP (port 80), and NTP (port 123)  
 
-`sudo ufw status` it should be inactive    
-`sudo ufw default deny incoming    
+ `sudo ufw status` it should be inactive  
+ ```
+ sudo ufw default deny incoming    
  sudo ufw default allow outgoing    
  sudo ufw allow 2200/tcp    
  sudo ufw allow 80/tcp    
  sudo ufw allow 123/udp    
  sudo ufw deny 22    
  sudo ufw enable  `
- 
+```
 
 Go to Amazon Lightsail Instance and go to `networking` tab and change firewall configurations to allow ports `2200/tcp`, `80/tcp` and `123/udp` and deny `22/ssh`
 
