@@ -74,6 +74,7 @@ Run commands
 
 `sudo apt-get install apache2`  
 `sudo apt-get install libapache2-mod-wsgi`  
+
 Enable `mod_wsgi` using command sudo `a2enmod wsgi`  
 
 ## Install and configure PostgreSQL
@@ -98,8 +99,8 @@ Enable `mod_wsgi` using command sudo `a2enmod wsgi`
 ## Setup new virtual host
 
 1. Create `itemcatalog.conf` file in path `/etc/apache2/sites-enabled` and edit it using `sudo nano /etc/apache2/sites-enabled/itemcatalog.conf` and add following lines
-
-`<VirtualHost *:80>
+```
+<VirtualHost *:80>
         ServerName 18.195.60.34
         ServerAdmin omar.nabil.49@gmail.com
         WSGIDaemonProcess itemCatalog python-home=/var/www/itemCatalog/itemCata$
@@ -114,24 +115,25 @@ Enable `mod_wsgi` using command sudo `a2enmod wsgi`
             Order allow,deny
             Allow from all
         </Directory>`
-
+```
 
 then save and exit
 
 2. Enable the virtual host using `sudo a2ensite itemcatalog`
 3. Navigate to `itemCatalog` folder using `cd /var/www/itemCatalog/` command
-4. Create `.wsgi` file with `sudo nano myapp.wsgi` command and add this content  
-`import sys
+4. Create `.wsgi` file with `sudo nano myapp.wsgi` command and add this content 
+```
+import sys
 import logging
 logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/itemCatalog")
 
 from itemCatalog import app as application
 application.secret_key = 'super_secret_key'
-`
-5. Rename `application.py` file and change it to `__init__.py`
-6. Edit `database_setup`, `lotsofseries.py` and `__init__.py` and change `create_engine('sqlite:///Series.db')` to `create_engine('postgresql://catalog:catalog@localhost/itemcatalog')`
-7. Edit `__init__.py` and change `client_secrets.json` file path form `'client_secrets.json'` to `'/var/www/itemCatalog/itemCatalog/client_secrets.json'`
+```
+5. Rename `application.py` file and change it to `__init__.py`  
+6. Edit `database_setup`, `lotsofseries.py` and `__init__.py` and change `create_engine('sqlite:///Series.db')` to `create_engine('postgresql://catalog:catalog@localhost/itemcatalog')`  
+7. Edit `__init__.py` and change `client_secrets.json` file path form `'client_secrets.json'` to `'/var/www/itemCatalog/itemCatalog/client_secrets.json'  
 
 ## Install virtual environment
 
