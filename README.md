@@ -24,6 +24,37 @@ SSH port: 2200
 
 1. `sudo apt-get update`  
 2. `sudo apt-get upgrade`
+3. Run command `sudo apt install unattended-upgrades` to install `unattended-upgrades` package
+4. edit `/etc/apt/apt.conf.d/50unattended-upgrades` and adjust the following 
+```
+Unattended-Upgrade::Allowed-Origins {
+        "${distro_id}:${distro_codename}";
+        "${distro_id}:${distro_codename}-security";
+        "${distro_id}:${distro_codename}-updates";
+//      "${distro_id}:${distro_codename}-proposed";
+//      "${distro_id}:${distro_codename}-backports";
+};
+```
+5.  Edit `/etc/apt/apt.conf.d/20auto-upgrades` to To enable automatic updates and add the following
+```
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
+```
+
+6. Run commande `sudo dpkg-reconfigure --priority=low unattended-upgrades` to enable it
+
+I still got the problem so I used this solution
+
+7. Run command `sudo apt-get install aptitude` to install aptitude
+8. Run commands 
+```
+sudo aptitude update
+sudo aptitude safe-upgrade
+```
+9. Restart apache `sudo service apache2 restart`
+
 
 ## Create user grader and give it sudo access
 
@@ -167,4 +198,6 @@ Deactivate the virtual environment by using `deactivate` command
 2. http://flask.pocoo.org/docs/0.12/installation/
 3. http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/
 4. https://help.ubuntu.com/community/UbuntuTime 
-
+5. https://help.ubuntu.com/lts/serverguide/automatic-updates.html
+6. https://help.ubuntu.com/community/AutomaticSecurityUpdates
+7. https://serverfault.com/questions/262751/update-ubuntu-10-04/262773#262773
